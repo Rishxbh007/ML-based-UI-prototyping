@@ -1,0 +1,227 @@
+{
+  "dataset_size": 336,
+  "classes": [
+    "banking",
+    "ecommerce",
+    "education",
+    "fitness",
+    "food-delivery",
+    "productivity",
+    "social",
+    "travel"
+  ],
+  "per_class_counts": {
+    "food-delivery": 42,
+    "fitness": 42,
+    "banking": 42,
+    "ecommerce": 42,
+    "education": 42,
+    "social": 42,
+    "travel": 42,
+    "productivity": 42
+  },
+  "split": {
+    "train": 201,
+    "val": 67,
+    "test": 68
+  },
+  "model_comparison": [
+    {
+      "model": "logreg",
+      "val_accuracy": 0.9701,
+      "val_macro_f1": 0.9696,
+      "cv_accuracy_mean": 0.9626,
+      "cv_accuracy_std": 0.0263
+    },
+    {
+      "model": "svm",
+      "val_accuracy": 0.9701,
+      "val_macro_f1": 0.9696,
+      "cv_accuracy_mean": 0.9551,
+      "cv_accuracy_std": 0.0253
+    },
+    {
+      "model": "nb",
+      "val_accuracy": 0.9403,
+      "val_macro_f1": 0.9391,
+      "cv_accuracy_mean": 0.9516,
+      "cv_accuracy_std": 0.0322
+    }
+  ],
+  "selected_model": "logreg",
+  "test": {
+    "accuracy": 0.9853,
+    "precision_macro": 0.9875,
+    "recall_macro": 0.9844,
+    "macro_f1": 0.9851
+  },
+  "classification_report": {
+    "banking": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 8.0
+    },
+    "ecommerce": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 8.0
+    },
+    "education": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 9.0
+    },
+    "fitness": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 9.0
+    },
+    "food-delivery": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 9.0
+    },
+    "productivity": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 8.0
+    },
+    "social": {
+      "precision": 0.9,
+      "recall": 1.0,
+      "f1-score": 0.9473684210526315,
+      "support": 9.0
+    },
+    "travel": {
+      "precision": 1.0,
+      "recall": 0.875,
+      "f1-score": 0.9333333333333333,
+      "support": 8.0
+    },
+    "accuracy": 0.9852941176470589,
+    "macro avg": {
+      "precision": 0.9875,
+      "recall": 0.984375,
+      "f1-score": 0.9850877192982457,
+      "support": 68.0
+    },
+    "weighted avg": {
+      "precision": 0.9867647058823529,
+      "recall": 0.9852941176470589,
+      "f1-score": 0.9851909184726523,
+      "support": 68.0
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "banking",
+      "ecommerce",
+      "education",
+      "fitness",
+      "food-delivery",
+      "productivity",
+      "social",
+      "travel"
+    ],
+    "matrix": [
+      [
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        9,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        9,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        9,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        7
+      ]
+    ]
+  },
+  "errors": [
+    {
+      "text": "plan a group trip, split travel costs and share photos",
+      "true": "travel",
+      "predicted": "social"
+    }
+  ],
+  "test_accuracy": 0.9853,
+  "test_macro_f1": 0.9851,
+  "cv_accuracy_mean": 0.9626,
+  "cv_accuracy_std": 0.0263,
+  "model": "TF-IDF(1-2gram) + logreg"
+}

@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Morph platform base styles — one quiet white page, editorial.
+ *
+ * The platform UI (marketing site + editor) is light by design: white
+ * paper, near-black ink, one restrained accent, hairlines instead of
+ * boxes. Generated prototypes render in their OWN token themes inside
+ * the phone frame, isolated from these styles via inline styling.
+ * ------------------------------------------------------------------ */
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: theme("colors.canvas");
+  color: theme("colors.ink.DEFAULT");
+  font-family: theme("fontFamily.sans");
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+}
+
+/* A single quiet page — no grid, no wash. */
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: theme("colors.canvas");
+  pointer-events: none;
+}
+
+/* Custom scrollbars — light, quiet. */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(23, 22, 27, 0.14);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(23, 22, 27, 0.24);
+  background-clip: padding-box;
+}
+
+/* Focus-visible ring for accessibility (keyboard users). */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid theme("colors.morph.500");
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* The requirement composer draws its OWN focus state on the surrounding card
+   (border + shadow). Suppress the nested field outline so only one clean line
+   shows instead of two stacked violet rectangles. */
+.composer-field:focus,
+.composer-field:focus-visible {
+  outline: none;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Balanced multi-line headline wrapping — for editorial display type. */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Respect reduced-motion preferences everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * NeonOrbs (src/components/ui/neon-orbs.tsx) — orbiting light beams.
+ *
+ * Ported from a styled-jsx component. This is a Vite app (no styled-jsx),
+ * so the component's `<style jsx global>` block lives here instead. The
+ * `.dark …` rules are inert in this light-only app (darkMode:"class", no
+ * `.dark` ancestor) but are kept for fidelity with the source.
+ * ------------------------------------------------------------------ */
+.beam-container {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.beam-light {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60px;
+  height: 4px;
+  margin-left: -30px;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  transition: all 0.5s;
+  background: linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.5) 30%, rgba(129, 140, 248, 0.9) 70%, rgba(99, 102, 241, 1) 100%);
+  box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.6), 0 0 40px 8px rgba(129, 140, 248, 0.3);
+}
+
+.dark .beam-light {
+  background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.5) 30%, rgba(150, 200, 255, 0.9) 70%, white 100%);
+  box-shadow: 0 0 20px 4px rgba(100, 180, 255, 0.8), 0 0 40px 8px rgba(59, 130, 246, 0.4);
+}
+
+.orb-light {
+  background: radial-gradient(circle at 50% 50%, #f0f4ff 0%, #f0f4ff 90%, transparent 100%);
+  box-shadow:
+    0 0 60px 2px rgba(99, 102, 241, 0.3),
+    0 0 100px 5px rgba(99, 102, 241, 0.15),
+    inset 0 0 60px 2px rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.dark .orb-light {
+  background: radial-gradient(circle at 50% 50%, #050a18 0%, #050a18 90%, transparent 100%);
+  box-shadow:
+    0 0 60px 2px rgba(59, 130, 246, 0.4),
+    0 0 100px 5px rgba(59, 130, 246, 0.2),
+    inset 0 0 60px 2px rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(100, 180, 255, 0.3);
+}
+
+.beam-spin-6 {
+  animation: spin 6s linear infinite;
+}
+.beam-spin-7-reverse {
+  animation: spin-reverse 7s linear infinite;
+}
+.beam-spin-8 {
+  animation: spin 8s linear infinite;
+}
+.beam-spin-10-reverse {
+  animation: spin-reverse 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* ------------------------------------------------------------------ *
+ * AnimatedText (src/components/ui/animated-text.tsx) — per-letter
+ * variable-font "breathing" weight animation.
+ *
+ * Ported from a styled-jsx component. This is a Vite app (no styled-jsx),
+ * so the keyframe lives here. The min/max weights come from per-letter
+ * inline `--wght-min` / `--wght-max` custom properties, so one global
+ * keyframe serves every instance with its own weight range. Requires the
+ * variable Inter axis (loaded via `Inter:wght@100..900` in index.html).
+ * ------------------------------------------------------------------ */
+@keyframes breath {
+  0% { font-variation-settings: "wght" var(--wght-min, 100); }
+  100% { font-variation-settings: "wght" var(--wght-max, 800); }
+}
+
+/* ------------------------------------------------------------------ *
+ * GradientBlob / GradientBlobCard (src/components/ui/gradient-bold-card.tsx)
+ * — an animated gradient blob that drifts around the four corners behind a
+ * glass surface. Ported from a component that inlined a <style> tag; moved
+ * here so the keyframe is defined once no matter how many blobs mount.
+ * translate() percentages are relative to the blob's own size, so one
+ * keyframe works for any blob dimension.
+ * ------------------------------------------------------------------ */
+@keyframes blob {
+  0%   { transform: translate(-100%, -100%); }
+  25%  { transform: translate(0%, -100%); }
+  50%  { transform: translate(0%, 0%); }
+  75%  { transform: translate(-100%, 0%); }
+  100% { transform: translate(-100%, -100%); }
+}
+
+.animate-blob {
+  animation: blob 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob { animation: none; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Ripple (RippleField src/components/ui/ripple-field.tsx — the app-wide
+ * layer — and the now-unused section RippleBackground) — concentric rings
+ * that expand and fade on click.
+ *
+ * IMPORTANT: animate `transform: scale()`, NOT width/height. Animating
+ * width/height forces layout + paint on EVERY frame (janky / "laggy");
+ * transform + opacity are GPU-composited and stay smooth. The rings have a
+ * FIXED size (set on `.animate-ripple`) and the keyframe owns the full
+ * transform — including the -50%/-50% centring — so we don't set a separate
+ * translate on the element (which would fight the animation and flash a
+ * full-size ring during a delay). `animation-fill-mode: both` makes the 0%
+ * frame (scale 0, invisible) apply during a ring's start delay too.
+ * ------------------------------------------------------------------ */
+@keyframes ripple {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0; }
+}
+
+.animate-ripple {
+  width: 320px;
+  height: 320px;
+  animation: ripple 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ripple { display: none; }
+}
